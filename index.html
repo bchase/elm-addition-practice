@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src="build/elm.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+        var t_str = location.search.match(/\?t=(\d+)/)[1]
+        var t = parseFloat(t_str)
+        var el = document.getElementById('elm')
+        var elm_app = Elm.AdditionPractice.embed(el, {interval: t || 2})
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="elm" />
+  </body>
+</html>
