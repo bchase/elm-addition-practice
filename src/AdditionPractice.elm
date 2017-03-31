@@ -9,7 +9,7 @@ import Random
 
 
 main =
-  Html.programWithFlags
+  Html.program
     { init = init
     , update = update
     , subscriptions = subscriptions
@@ -28,9 +28,9 @@ type alias Model =
   }
 
 
-init : { interval : Float } -> ( Model, Cmd Msg )
-init { interval } =
-  Model ( 0, 0 ) Nothing interval ! []
+init : ( Model, Cmd Msg )
+init =
+  Model ( 0, 0 ) Nothing 2.0 ! []
 
 
 
