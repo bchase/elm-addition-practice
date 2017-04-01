@@ -91,55 +91,81 @@ subscriptions { interval } =
 view : Model -> Html Msg
 view model =
   let
-    bodyStyles =
+    styles =
       [ ( "text-align", "center" )
       , ( "font-family", "sans-serif" )
       , ( "font-weight", "bold" )
       , ( "font-size", "50px" )
       ]
 
-    int1pStyles =
-      [ ( "margin-bottom", "0px" ) ]
-
-    int2pStyles =
-      [ ( "margin-top", "15px" )
-      , ( "margin-bottom", "15px" )
-      ]
-
-    hrStyles =
-      [ ( "width", "20%" )
-      , ( "border", "2px solid black" )
-      ]
-
-    int3pStyles =
-      [ ( "margin-top", "15px" )
-      , ( "margin-bottom", "15px" )
-      ]
-
-    hidden =
-      style [ ( "visibility", "hidden" ) ]
-
     ( int1, int2 ) =
       model.pair
   in
-    div [ style bodyStyles ]
-      [ p [ style int1pStyles ]
-        [ span [ hidden ] [ text "+" ]
-        , nbsp
-        , text <| toString int1
-        ]
-      , p [ style int2pStyles ]
-        [ span [] [ text "+" ]
-        , nbsp
-        , text <| toString int2
-        ]
-      , hr [ style hrStyles ] []
-      , p [ style int3pStyles ]
-        [ span [ hidden ] [ text "+" ]
-        , nbsp
-        , text <| Maybe.withDefault "" <| Maybe.map toString model.sum
-        ]
+    div [ style styles ]
+      [ operand1 int1
+      , operand2 int2
+      , line
+      , sum model.sum
       ]
+
+
+operand1 : Int -> Html Msg
+operand1 int =
+  let
+    styles =
+      [ ( "margin-bottom", "0px" ) ]
+  in
+    p [ style styles ]
+      [ span [ hidden ] [ text "+" ]
+      , nbsp
+      , text <| toString int
+      ]
+
+
+operand2 : Int -> Html Msg
+operand2 int =
+  let
+    styles =
+      [ ( "margin-top", "15px" )
+      , ( "margin-bottom", "15px" )
+      ]
+  in
+    p [ style styles ]
+      [ span [] [ text "+" ]
+      , nbsp
+      , text <| toString int
+      ]
+
+
+line : Html Msg
+line =
+  let
+    styles =
+      [ ( "width", "20%" )
+      , ( "border", "2px solid black" )
+      ]
+  in
+    hr [ style styles ] []
+
+
+sum : Maybe Int -> Html Msg
+sum maybeSum =
+  let
+    styles =
+      [ ( "margin-top", "15px" )
+      , ( "margin-bottom", "15px" )
+      ]
+  in
+    p [ style styles ]
+      [ span [ hidden ] [ text "+" ]
+      , nbsp
+      , text <| Maybe.withDefault "" <| Maybe.map toString maybeSum
+      ]
+
+
+hidden : Html.Attribute Msg
+hidden =
+  style [ ( "visibility", "hidden" ) ]
 
 
 nbsp : Html Msg
