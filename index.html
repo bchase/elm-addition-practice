@@ -9029,17 +9029,15 @@ var _bchase$elm_addition_practice$AdditionPractice$nbsp = A2(
 		_1: {ctor: '[]'}
 	},
 	{ctor: '[]'});
-var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
-	var _p0 = model.pair;
-	var int1 = _p0._0;
-	var int2 = _p0._1;
-	var hidden = _elm_lang$html$Html_Attributes$style(
-		{
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'visibility', _1: 'hidden'},
-			_1: {ctor: '[]'}
-		});
-	var int3pStyles = {
+var _bchase$elm_addition_practice$AdditionPractice$hidden = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'visibility', _1: 'hidden'},
+		_1: {ctor: '[]'}
+	});
+var _bchase$elm_addition_practice$AdditionPractice$sum = function (model) {
+	var sum = model.showSum ? _elm_lang$core$Basics$toString(model.sum) : '';
+	var styles = {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '15px'},
 		_1: {
@@ -9048,7 +9046,40 @@ var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
 			_1: {ctor: '[]'}
 		}
 	};
-	var hrStyles = {
+	return A2(
+		_elm_lang$html$Html$p,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(styles),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$span,
+				{
+					ctor: '::',
+					_0: _bchase$elm_addition_practice$AdditionPractice$hidden,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('+'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _bchase$elm_addition_practice$AdditionPractice$nbsp,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(sum),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _bchase$elm_addition_practice$AdditionPractice$line = function () {
+	var styles = {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'width', _1: '20%'},
 		_1: {
@@ -9057,7 +9088,17 @@ var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
 			_1: {ctor: '[]'}
 		}
 	};
-	var int2pStyles = {
+	return A2(
+		_elm_lang$html$Html$hr,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(styles),
+			_1: {ctor: '[]'}
+		},
+		{ctor: '[]'});
+}();
+var _bchase$elm_addition_practice$AdditionPractice$operand2 = function ($int) {
+	var styles = {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '15px'},
 		_1: {
@@ -9066,12 +9107,79 @@ var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
 			_1: {ctor: '[]'}
 		}
 	};
-	var int1pStyles = {
+	return A2(
+		_elm_lang$html$Html$p,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(styles),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$span,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('+'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _bchase$elm_addition_practice$AdditionPractice$nbsp,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString($int)),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _bchase$elm_addition_practice$AdditionPractice$operand1 = function ($int) {
+	var styles = {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '0px'},
 		_1: {ctor: '[]'}
 	};
-	var bodyStyles = {
+	return A2(
+		_elm_lang$html$Html$p,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(styles),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$span,
+				{
+					ctor: '::',
+					_0: _bchase$elm_addition_practice$AdditionPractice$hidden,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('+'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _bchase$elm_addition_practice$AdditionPractice$nbsp,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString($int)),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
+	var _p0 = model.pair;
+	var int1 = _p0._0;
+	var int2 = _p0._1;
+	var styles = {
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
 		_1: {
@@ -9092,199 +9200,112 @@ var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(bodyStyles),
+			_0: _elm_lang$html$Html_Attributes$style(styles),
 			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$p,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$style(int1pStyles),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$span,
-						{
-							ctor: '::',
-							_0: hidden,
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('+'),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: _bchase$elm_addition_practice$AdditionPractice$nbsp,
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								_elm_lang$core$Basics$toString(int1)),
-							_1: {ctor: '[]'}
-						}
-					}
-				}),
+			_0: _bchase$elm_addition_practice$AdditionPractice$operand1(int1),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$p,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$style(int2pStyles),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$span,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('+'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: _bchase$elm_addition_practice$AdditionPractice$nbsp,
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(
-									_elm_lang$core$Basics$toString(int2)),
-								_1: {ctor: '[]'}
-							}
-						}
-					}),
+				_0: _bchase$elm_addition_practice$AdditionPractice$operand2(int2),
 				_1: {
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$hr,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(hrStyles),
-							_1: {ctor: '[]'}
-						},
-						{ctor: '[]'}),
+					_0: _bchase$elm_addition_practice$AdditionPractice$line,
 					_1: {
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$p,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$style(int3pStyles),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$span,
-									{
-										ctor: '::',
-										_0: hidden,
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('+'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: _bchase$elm_addition_practice$AdditionPractice$nbsp,
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											A2(
-												_elm_lang$core$Maybe$withDefault,
-												'',
-												A2(_elm_lang$core$Maybe$map, _elm_lang$core$Basics$toString, model.sum))),
-										_1: {ctor: '[]'}
-									}
-								}
-							}),
+						_0: _bchase$elm_addition_practice$AdditionPractice$sum(model),
 						_1: {ctor: '[]'}
 					}
 				}
 			}
 		});
 };
-var _bchase$elm_addition_practice$AdditionPractice$Model = F3(
-	function (a, b, c) {
-		return {pair: a, sum: b, interval: c};
+var _bchase$elm_addition_practice$AdditionPractice$Model = F4(
+	function (a, b, c, d) {
+		return {pair: a, sum: b, clock: c, showSum: d};
 	});
 var _bchase$elm_addition_practice$AdditionPractice$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
-	A3(
+	A4(
 		_bchase$elm_addition_practice$AdditionPractice$Model,
 		{ctor: '_Tuple2', _0: 0, _1: 0},
-		_elm_lang$core$Maybe$Nothing,
-		2.0),
+		0,
+		0,
+		false),
 	{ctor: '[]'});
-var _bchase$elm_addition_practice$AdditionPractice$NewRandomPair = function (a) {
-	return {ctor: 'NewRandomPair', _0: a};
+var _bchase$elm_addition_practice$AdditionPractice$SetPair = function (a) {
+	return {ctor: 'SetPair', _0: a};
 };
 var _bchase$elm_addition_practice$AdditionPractice$generateRandomPair = function () {
 	var $int = A2(_elm_lang$core$Random$int, 0, 9);
 	var pair = A2(_elm_lang$core$Random$pair, $int, $int);
-	return A2(_elm_lang$core$Random$generate, _bchase$elm_addition_practice$AdditionPractice$NewRandomPair, pair);
+	return A2(_elm_lang$core$Random$generate, _bchase$elm_addition_practice$AdditionPractice$SetPair, pair);
 }();
-var _bchase$elm_addition_practice$AdditionPractice$update = F2(
-	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
-			case 'NewPair':
+var _bchase$elm_addition_practice$AdditionPractice$tick = function (oldModel) {
+	tick:
+	while (true) {
+		var model = _elm_lang$core$Native_Utils.update(
+			oldModel,
+			{clock: oldModel.clock + 1});
+		var _p1 = model.clock;
+		switch (_p1) {
+			case 1:
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{showSum: false}),
 					{
 						ctor: '::',
 						_0: _bchase$elm_addition_practice$AdditionPractice$generateRandomPair,
 						_1: {ctor: '[]'}
 					});
-			case 'ShowSum':
-				var _p2 = model.pair;
-				var int1 = _p2._0;
-				var int2 = _p2._1;
+			case 2:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'});
+			case 3:
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{
-							sum: _elm_lang$core$Maybe$Just(int1 + int2)
-						}),
+						{showSum: true}),
+					{ctor: '[]'});
+			case 4:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
 					{ctor: '[]'});
 			default:
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{pair: _p1._0, sum: _elm_lang$core$Maybe$Nothing}),
-					{ctor: '[]'});
+				var _v1 = _elm_lang$core$Native_Utils.update(
+					model,
+					{clock: 0});
+				oldModel = _v1;
+				continue tick;
+		}
+	}
+};
+var _bchase$elm_addition_practice$AdditionPractice$update = F2(
+	function (msg, model) {
+		var _p2 = msg;
+		if (_p2.ctor === 'Tick') {
+			return _bchase$elm_addition_practice$AdditionPractice$tick(model);
+		} else {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
+					model,
+					{pair: _p2._0, sum: _p2._0._0 + _p2._0._1}),
+				{ctor: '[]'});
 		}
 	});
-var _bchase$elm_addition_practice$AdditionPractice$ShowSum = function (a) {
-	return {ctor: 'ShowSum', _0: a};
-};
-var _bchase$elm_addition_practice$AdditionPractice$NewPair = function (a) {
-	return {ctor: 'NewPair', _0: a};
+var _bchase$elm_addition_practice$AdditionPractice$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
 };
 var _bchase$elm_addition_practice$AdditionPractice$subscriptions = function (_p3) {
-	var _p4 = _p3;
-	var _p5 = _p4.interval;
-	return _elm_lang$core$Platform_Sub$batch(
-		{
-			ctor: '::',
-			_0: A2(_elm_lang$core$Time$every, (2 * _p5) * _elm_lang$core$Time$second, _bchase$elm_addition_practice$AdditionPractice$NewPair),
-			_1: {
-				ctor: '::',
-				_0: A2(_elm_lang$core$Time$every, _p5 * _elm_lang$core$Time$second, _bchase$elm_addition_practice$AdditionPractice$ShowSum),
-				_1: {ctor: '[]'}
-			}
-		});
+	return A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _bchase$elm_addition_practice$AdditionPractice$Tick);
 };
 var _bchase$elm_addition_practice$AdditionPractice$main = _elm_lang$html$Html$program(
 	{init: _bchase$elm_addition_practice$AdditionPractice$init, update: _bchase$elm_addition_practice$AdditionPractice$update, subscriptions: _bchase$elm_addition_practice$AdditionPractice$subscriptions, view: _bchase$elm_addition_practice$AdditionPractice$view})();
