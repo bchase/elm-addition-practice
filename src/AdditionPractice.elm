@@ -23,14 +23,15 @@ main =
 
 type alias Model =
   { pair : ( Int, Int )
-  , sum : Maybe Int
-  , interval : Float
+  , sum : Int
+  , clock : Int
+  , showSum : Bool
   }
 
 
 init : ( Model, Cmd Msg )
 init =
-  Model ( 0, 0 ) Nothing 2.0 ! []
+  Model ( 0, 0 ) 0 0 False ! []
 
 
 
@@ -38,26 +39,41 @@ init =
 
 
 type Msg
-  = NewPair Time
-  | ShowSum Time
-  | NewRandomPair ( Int, Int )
+  = Tick Time
+  | SetPair ( Int, Int )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-  case msg of
-    NewPair _ ->
-      model ! [ generateRandomPair ]
+  case Debug.log "MSG" msg of
+    Tick _ ->
+      tick model
 
-    ShowSum _ ->
-      let
-        ( int1, int2 ) =
-          model.pair
-      in
-        { model | sum = Just <| int1 + int2 } ! []
+    SetPair (( i1, i2 ) as pair) ->
+      { model | pair = pair, sum = i1 + i2 } ! []
 
-    NewRandomPair pair ->
-      { model | pair = pair, sum = Nothing } ! []
+
+tick : Model -> ( Model, Cmd Msg )
+tick oldModel =
+  let
+    model =
+      { oldModel | clock = oldModel.clock + 1 }
+  in
+    case model.clock of
+      1 ->
+        { model | showSum = False } ! [ generateRandomPair ]
+
+      2 ->
+        model ! []
+
+      3 ->
+        { model | showSum = True } ! []
+
+      4 ->
+        model ! []
+
+      _ ->
+        tick { model | clock = 0 }
 
 
 generateRandomPair : Cmd Msg
@@ -69,7 +85,7 @@ generateRandomPair =
     pair =
       Random.pair int int
   in
-    Random.generate NewRandomPair pair
+    Random.generate SetPair pair
 
 
 
@@ -77,11 +93,8 @@ generateRandomPair =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { interval } =
-  Sub.batch
-    [ Time.every (2 * interval * Time.second) NewPair
-    , Time.every (interval * Time.second) ShowSum
-    ]
+subscriptions _ =
+  Time.every Time.second Tick
 
 
 
@@ -105,7 +118,7 @@ view model =
       [ operand1 int1
       , operand2 int2
       , line
-      , sum model.sum
+      , sum model
       ]
 
 
@@ -148,18 +161,24 @@ line =
     hr [ style styles ] []
 
 
-sum : Maybe Int -> Html Msg
-sum maybeSum =
+sum : Model -> Html Msg
+sum model =
   let
     styles =
       [ ( "margin-top", "15px" )
       , ( "margin-bottom", "15px" )
       ]
+
+    sum =
+      if model.showSum then
+        toString model.sum
+      else
+        ""
   in
     p [ style styles ]
       [ span [ hidden ] [ text "+" ]
       , nbsp
-      , text <| Maybe.withDefault "" <| Maybe.map toString maybeSum
+      , text sum
       ]
 
 
