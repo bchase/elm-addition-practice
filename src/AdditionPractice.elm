@@ -25,13 +25,15 @@ type alias Model =
   { pair : ( Int, Int )
   , sum : Int
   , clock : Int
+  , ceiling : Int
+  , delay : Int
   , showSum : Bool
   }
 
 
 init : ( Model, Cmd Msg )
 init =
-  Model ( 0, 0 ) 0 0 False ! []
+  Model ( 0, 0 ) 0 0 9 2 False ! []
 
 
 
@@ -41,6 +43,8 @@ init =
 type Msg
   = Tick Time
   | SetPair ( Int, Int )
+  | SetCeiling String
+  | SetDelay String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -52,35 +56,34 @@ update msg model =
     SetPair (( i1, i2 ) as pair) ->
       { model | pair = pair, sum = i1 + i2 } ! []
 
+    SetCeiling str ->
+      { model | ceiling = Result.withDefault 9 <| String.toInt str } ! []
+
+    SetDelay str ->
+      { model | delay = Result.withDefault 2 <| String.toInt str } ! []
+
 
 tick : Model -> ( Model, Cmd Msg )
-tick oldModel =
+tick ({ clock, delay } as oldModel) =
   let
     model =
       { oldModel | clock = oldModel.clock + 1 }
   in
-    case model.clock of
-      1 ->
-        { model | showSum = False } ! [ generateRandomPair ]
-
-      2 ->
-        model ! []
-
-      3 ->
-        { model | showSum = True } ! []
-
-      4 ->
-        model ! []
-
-      _ ->
-        tick { model | clock = 0 }
+    if clock == 1 then
+      { model | showSum = False } ! [ generateRandomPair model ]
+    else if clock == delay + 1 then
+      { model | showSum = True } ! []
+    else if clock > delay + 2 then
+      tick { model | clock = 0 }
+    else
+      model ! []
 
 
-generateRandomPair : Cmd Msg
-generateRandomPair =
+generateRandomPair : Model -> Cmd Msg
+generateRandomPair model =
   let
     int =
-      Random.int 0 9
+      Random.int 0 model.ceiling
 
     pair =
       Random.pair int int
@@ -119,7 +122,30 @@ view model =
       , operand2 int2
       , line
       , sum model
+      , separator
+      , ceilingInput model
+      , delayInput model
       ]
+
+
+separator : Html Msg
+separator =
+  div []
+    [ br [] []
+    , br [] []
+    , br [] []
+    , hr [] []
+    ]
+
+
+ceilingInput : Model -> Html Msg
+ceilingInput model =
+  input [ onInput SetCeiling, placeholder "Ceiling (default: 9)" ] []
+
+
+delayInput : Model -> Html Msg
+delayInput model =
+  input [ onInput SetDelay, placeholder "Delay (default: 2s)" ] []
 
 
 operand1 : Int -> Html Msg
