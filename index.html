@@ -9175,6 +9175,87 @@ var _bchase$elm_addition_practice$AdditionPractice$operand1 = function ($int) {
 			}
 		});
 };
+var _bchase$elm_addition_practice$AdditionPractice$separator = A2(
+	_elm_lang$html$Html$div,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$br,
+			{ctor: '[]'},
+			{ctor: '[]'}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$br,
+				{ctor: '[]'},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$br,
+					{ctor: '[]'},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$hr,
+						{ctor: '[]'},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+var _bchase$elm_addition_practice$AdditionPractice$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {pair: a, sum: b, clock: c, ceiling: d, delay: e, showSum: f};
+	});
+var _bchase$elm_addition_practice$AdditionPractice$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	A6(
+		_bchase$elm_addition_practice$AdditionPractice$Model,
+		{ctor: '_Tuple2', _0: 0, _1: 0},
+		0,
+		0,
+		9,
+		2,
+		false),
+	{ctor: '[]'});
+var _bchase$elm_addition_practice$AdditionPractice$SetDelay = function (a) {
+	return {ctor: 'SetDelay', _0: a};
+};
+var _bchase$elm_addition_practice$AdditionPractice$delayInput = function (model) {
+	return A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Events$onInput(_bchase$elm_addition_practice$AdditionPractice$SetDelay),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$placeholder('Delay (default: 2s)'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{ctor: '[]'});
+};
+var _bchase$elm_addition_practice$AdditionPractice$SetCeiling = function (a) {
+	return {ctor: 'SetCeiling', _0: a};
+};
+var _bchase$elm_addition_practice$AdditionPractice$ceilingInput = function (model) {
+	return A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Events$onInput(_bchase$elm_addition_practice$AdditionPractice$SetCeiling),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$placeholder('Ceiling (default: 9)'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{ctor: '[]'});
+};
 var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
 	var _p0 = model.pair;
 	var int1 = _p0._0;
@@ -9215,96 +9296,121 @@ var _bchase$elm_addition_practice$AdditionPractice$view = function (model) {
 					_1: {
 						ctor: '::',
 						_0: _bchase$elm_addition_practice$AdditionPractice$sum(model),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: _bchase$elm_addition_practice$AdditionPractice$separator,
+							_1: {
+								ctor: '::',
+								_0: _bchase$elm_addition_practice$AdditionPractice$ceilingInput(model),
+								_1: {
+									ctor: '::',
+									_0: _bchase$elm_addition_practice$AdditionPractice$delayInput(model),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
 					}
 				}
 			}
 		});
 };
-var _bchase$elm_addition_practice$AdditionPractice$Model = F4(
-	function (a, b, c, d) {
-		return {pair: a, sum: b, clock: c, showSum: d};
-	});
-var _bchase$elm_addition_practice$AdditionPractice$init = A2(
-	_elm_lang$core$Platform_Cmd_ops['!'],
-	A4(
-		_bchase$elm_addition_practice$AdditionPractice$Model,
-		{ctor: '_Tuple2', _0: 0, _1: 0},
-		0,
-		0,
-		false),
-	{ctor: '[]'});
 var _bchase$elm_addition_practice$AdditionPractice$SetPair = function (a) {
 	return {ctor: 'SetPair', _0: a};
 };
-var _bchase$elm_addition_practice$AdditionPractice$generateRandomPair = function () {
-	var $int = A2(_elm_lang$core$Random$int, 0, 9);
+var _bchase$elm_addition_practice$AdditionPractice$generateRandomPair = function (model) {
+	var $int = A2(_elm_lang$core$Random$int, 0, model.ceiling);
 	var pair = A2(_elm_lang$core$Random$pair, $int, $int);
 	return A2(_elm_lang$core$Random$generate, _bchase$elm_addition_practice$AdditionPractice$SetPair, pair);
-}();
-var _bchase$elm_addition_practice$AdditionPractice$tick = function (oldModel) {
+};
+var _bchase$elm_addition_practice$AdditionPractice$tick = function (_p1) {
 	tick:
 	while (true) {
+		var _p2 = _p1;
+		var _p5 = _p2;
+		var _p4 = _p2.delay;
+		var _p3 = _p2.clock;
 		var model = _elm_lang$core$Native_Utils.update(
-			oldModel,
-			{clock: oldModel.clock + 1});
-		var _p1 = model.clock;
-		switch (_p1) {
-			case 1:
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{showSum: false}),
-					{
-						ctor: '::',
-						_0: _bchase$elm_addition_practice$AdditionPractice$generateRandomPair,
-						_1: {ctor: '[]'}
-					});
-			case 2:
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
+			_p5,
+			{clock: _p5.clock + 1});
+		if (_elm_lang$core$Native_Utils.eq(_p3, 1)) {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
 					model,
-					{ctor: '[]'});
-			case 3:
+					{showSum: false}),
+				{
+					ctor: '::',
+					_0: _bchase$elm_addition_practice$AdditionPractice$generateRandomPair(model),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			if (_elm_lang$core$Native_Utils.eq(_p3, _p4 + 1)) {
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{showSum: true}),
 					{ctor: '[]'});
-			case 4:
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					{ctor: '[]'});
-			default:
-				var _v1 = _elm_lang$core$Native_Utils.update(
-					model,
-					{clock: 0});
-				oldModel = _v1;
-				continue tick;
+			} else {
+				if (_elm_lang$core$Native_Utils.cmp(_p3, _p4 + 2) > 0) {
+					var _v1 = _elm_lang$core$Native_Utils.update(
+						model,
+						{clock: 0});
+					_p1 = _v1;
+					continue tick;
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						model,
+						{ctor: '[]'});
+				}
+			}
 		}
 	}
 };
 var _bchase$elm_addition_practice$AdditionPractice$update = F2(
 	function (msg, model) {
-		var _p2 = msg;
-		if (_p2.ctor === 'Tick') {
-			return _bchase$elm_addition_practice$AdditionPractice$tick(model);
-		} else {
-			return A2(
-				_elm_lang$core$Platform_Cmd_ops['!'],
-				_elm_lang$core$Native_Utils.update(
-					model,
-					{pair: _p2._0, sum: _p2._0._0 + _p2._0._1}),
-				{ctor: '[]'});
+		var _p6 = msg;
+		switch (_p6.ctor) {
+			case 'Tick':
+				return _bchase$elm_addition_practice$AdditionPractice$tick(model);
+			case 'SetPair':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{pair: _p6._0, sum: _p6._0._0 + _p6._0._1}),
+					{ctor: '[]'});
+			case 'SetCeiling':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							ceiling: A2(
+								_elm_lang$core$Result$withDefault,
+								9,
+								_elm_lang$core$String$toInt(_p6._0))
+						}),
+					{ctor: '[]'});
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							delay: A2(
+								_elm_lang$core$Result$withDefault,
+								2,
+								_elm_lang$core$String$toInt(_p6._0))
+						}),
+					{ctor: '[]'});
 		}
 	});
 var _bchase$elm_addition_practice$AdditionPractice$Tick = function (a) {
 	return {ctor: 'Tick', _0: a};
 };
-var _bchase$elm_addition_practice$AdditionPractice$subscriptions = function (_p3) {
+var _bchase$elm_addition_practice$AdditionPractice$subscriptions = function (_p7) {
 	return A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _bchase$elm_addition_practice$AdditionPractice$Tick);
 };
 var _bchase$elm_addition_practice$AdditionPractice$main = _elm_lang$html$Html$program(
